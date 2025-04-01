@@ -21,7 +21,12 @@
         测试工具类
     </description>
 <!--    github仓库地址-->
-    <url>https://github.com/zhouzi25/zz-utils</url>
+<!--    <url>https://github.com/zhouzi25/zz-utils</url>-->
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/zhouzi25/zz-utils</url>
+    </issueManagement>
 <!--    使用协议-->
     <licenses>
         <license>
@@ -49,7 +54,7 @@
     <scm>
         <connection>scm:git:git://github.com/zhouzi25/zz-utils.git</connection>
         <developerConnection>scm:git:ssh://github.com:zhouzi25/zz-utils.git.git</developerConnection>
-        <url>http://github.com/zhouzi25/zz-utils/tree/master</url>
+        <url>https://github.com/zhouzi25/zz-utils</url>
     </scm>
 
     <!-- 发布配置 -->
@@ -64,7 +69,43 @@
 <!--        </repository>-->
 <!--    </distributionManagement>-->
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- Source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <inherited>true</inherited>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludeResources>true</excludeResources>
+                    <useDefaultExcludes>true</useDefaultExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 <!--    发布中央仓库  mvn deploy-->
+    <profiles>
+     <profile>
+         <id>release</id>
     <build>
         <plugins>
             <plugin>
@@ -73,9 +114,11 @@
                 <version>0.7.0</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <publishingServerId>central</publishingServerId>
 <!--                    自动发布-->
 <!--                    <autoPublish>true</autoPublish>-->
+                        <!-- 这里的serverId是之前在settings.xml中配置的 -->
+                        <publishingServerId>central</publishingServerId>
+                        <tokenAuth>true</tokenAuth>
                 </configuration>
 
             </plugin>
@@ -84,9 +127,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.5</version>
+                <configuration>
+                    <!-- 改成你自己的路径 -->
+                    <executable>D:\developerKits\GnuPG\bin\gpg.exe</executable>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>sign-artifacts</id>
+<!--                        <id>sign-artifacts</id>-->
                         <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
@@ -125,4 +172,6 @@
             </plugin>
         </plugins>
     </build>
+     </profile>
+    </profiles>
 </project>
