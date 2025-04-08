@@ -3,30 +3,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <!-- 基本信息 -->
     <groupId>org.zz</groupId>
     <artifactId>zz-utils</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.1</version> <!-- 必须是非 SNAPSHOT 版本 -->
+    <!--    打包类型-->
+    <packaging>jar</packaging>
+    <name>zhouzi25</name>
+    <description>测试工具类</description>
+    <url>https://github.com/zhouzi25/zz-utils</url>
+
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!--        <maven.compiler.source>21</maven.compiler.source>-->
+<!--        <maven.compiler.target>21</maven.compiler.target>-->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
     </properties>
-<!--    打包类型-->
-<!--    <packaging>jar</packaging>-->
+
 
 <!--    备注-->
-    <description>
-        测试工具类
-    </description>
 <!--    github仓库地址-->
 <!--    <url>https://github.com/zhouzi25/zz-utils</url>-->
 
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/zhouzi25/zz-utils</url>
-    </issueManagement>
+<!--    <issueManagement>-->
+<!--        <system>GitHub</system>-->
+<!--        <url>https://github.com/zhouzi25/zz-utils</url>-->
+<!--    </issueManagement>-->
 <!--    使用协议-->
     <licenses>
         <license>
@@ -40,8 +42,6 @@
         <developer>
             <name>zhouzi25</name>
             <email>zhouzi25@outlook.com</email>
-            <organization>Sonatype</organization>
-            <organizationUrl>http://www.sonatype.com</organizationUrl>
         </developer>
     </developers>
 <!--    在你自己的服务器上进行 Subversion：-->
@@ -56,122 +56,59 @@
         <developerConnection>scm:git:ssh://github.com:zhouzi25/zz-utils.git.git</developerConnection>
         <url>https://github.com/zhouzi25/zz-utils</url>
     </scm>
-
-    <!-- 发布配置 -->
-<!--    <distributionManagement>-->
-<!--        <snapshotRepository>-->
-<!--            <id>ossrh</id>-->
-<!--            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>-->
-<!--        </snapshotRepository>-->
-<!--        <repository>-->
-<!--            <id>ossrh</id>-->
-<!--            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-<!--        </repository>-->
-<!--    </distributionManagement>-->
-
+    <!-- 配置发布仓库 -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>zhouzi25</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>zhouzi25</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <!-- Source -->
+            <!-- 生成源码包 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
-                <inherited>true</inherited>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <excludeResources>true</excludeResources>
-                    <useDefaultExcludes>true</useDefaultExcludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-<!--    发布中央仓库  mvn deploy-->
-    <profiles>
-     <profile>
-         <id>release</id>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.7.0</version>
-                <extensions>true</extensions>
-                <configuration>
-<!--                    自动发布-->
-<!--                    <autoPublish>true</autoPublish>-->
-                        <!-- 这里的serverId是之前在settings.xml中配置的 -->
-                        <publishingServerId>central</publishingServerId>
-                        <tokenAuth>true</tokenAuth>
-                </configuration>
-
-            </plugin>
-            <!--    签名插件        -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <configuration>
-                    <!-- 改成你自己的路径 -->
-                    <executable>D:\developerKits\GnuPG\bin\gpg.exe</executable>
-                </configuration>
-                <executions>
-                    <execution>
-<!--                        <id>sign-artifacts</id>-->
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
+                        <goals><goal>jar-no-fork</goal></goals>
                     </execution>
                 </executions>
             </plugin>
 
-            <!--     生成源文件       -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--     生成源javadocs文件       -->
+            <!-- 生成 Javadoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>3.3.2</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
+                        <goals><goal>jar</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- GPG 签名 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals><goal>sign</goal></goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-     </profile>
-    </profiles>
+
 </project>
