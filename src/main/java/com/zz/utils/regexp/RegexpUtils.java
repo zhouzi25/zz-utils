@@ -1,14 +1,10 @@
 package com.zz.utils.regexp;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexpUtils {
-    private static Logger log = LoggerFactory.getLogger(RegexpUtils.class);
-
     /**
      * 判断是否是座机号码
      * @param phone
@@ -21,9 +17,9 @@ public class RegexpUtils {
         Matcher matcher = pattern.matcher(phone);    // 创建给定输入模式的匹配器
         boolean bool = matcher.matches();
         if(bool) { // 如果验证通过
-            log.info("输入的电话号码格式正确。");
+            System.out.println("输入的电话号码格式正确。");
         } else {
-            log.error("输入的电话号码无效，格式不正确。");
+            System.out.println("输入的电话号码无效，格式不正确。");
         }
         return  bool;
     }  /**
@@ -38,9 +34,9 @@ public class RegexpUtils {
         Matcher matcher = pattern.matcher(phone);    // 创建给定输入模式的匹配器
         boolean bool = matcher.matches();
         if(bool) { // 如果验证通过
-            log.info("输入的电话号码格式正确。");
+            System.out.println("输入的电话号码格式正确。");
         } else {
-            log.error("输入的电话号码无效，格式不正确。");
+            System.out.println("输入的电话号码无效，格式不正确。");
         }
         return  bool;
     }
@@ -56,9 +52,9 @@ public class RegexpUtils {
         Matcher matcher = pattern.matcher(password);    // 创建给定输入模式的匹配器
         boolean bool = matcher.matches();
         if(bool) { // 如果验证通过
-            log.info("输入的密码格式正确。");
+            System.out.println("输入的密码格式正确。");
         } else {
-            log.error("输入的密码无效，格式不正确。必须由12-20位数字、字母、特殊字符组成 ");
+            System.out.println("输入的密码无效，格式不正确。必须由12-20位数字、字母、特殊字符组成 ");
         }
         return bool;
     }

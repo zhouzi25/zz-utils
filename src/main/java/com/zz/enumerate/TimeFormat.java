@@ -4,7 +4,7 @@ public enum TimeFormat {
     /**
      * 时间戳
      */
-    Timestamp("0"),
+    Timestamp(0),
     /**
      * 日期格式  yyyy
      */
@@ -44,7 +44,7 @@ public enum TimeFormat {
      *调用构造方法
      * @param timeFormat 选择该方法
      */
-    private TimeFormat(String timeFormat){
+    private TimeFormat(Object timeFormat){
         this.timeFormatValue = timeFormat;
     }
 
@@ -53,9 +53,13 @@ public enum TimeFormat {
      * 获取当前选择时间格式
      * @return
      */
-    public String getValue()
+    public String getStringValue()
     {
         return timeFormatValue.toString();
+    }
+    public Integer getIntValue()
+    {
+        return (int)timeFormatValue;
     }
 
 }
